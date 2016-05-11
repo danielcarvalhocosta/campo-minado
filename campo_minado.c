@@ -2,31 +2,27 @@
 #include <stdlib.h>
 #include <time.h>
 
-void imprimir_campo(int *campo, int linhas, int colunas) {
+void imprimir_campo(char *campo, int linhas, int colunas) {
   int i, j;
 
-  for(j = 0; j < colunas+1; ++j) {
-    if(j == 0) printf("  ");
-    else printf("%d ", j);
-  }
-  printf("\n");
-
   for(i = 0; i < linhas; ++i) {
-    printf("%d ", i+1);
     for(j = 0; j < colunas; ++j) {
-      printf("%d ", campo[i*colunas+j]);
+      printf("[%03d] ", (i*colunas+j)+1);
     }
     printf("\n");
   }
 }
 
-void gerar_campo(int *campo, int linhas, int colunas) {
+void gerar_campo(char *campo, int tamanho, int bombas) {
   int i, j;
 
+  for(i = 0; i < tamanho; ++i) {
+    campo[i] = '-';
+  }
+
   srand( (unsigned)time(NULL) );
-  for(i = 0; i < linhas; ++i) {
-    for(j = 0; j < colunas; ++j) {
-      campo[i*colunas+j] = rand()%7;
-    }
+  for(i = 0; i < bombas; ++i) {
+    int pos = rand()%tamanho;
+    campo[pos] = '*';
   } 
 }
