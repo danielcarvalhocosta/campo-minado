@@ -28,6 +28,26 @@ void imprimir_campo(casa *campo) {
   }
 }
 
+int busca_seq(int vetor[], int chave, int tamanho) {
+  int i;
+
+  for(i = 0; i < tamanho; ++i) {
+    if(vetor[i] == chave) {
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+void limpar_tela() {
+  #ifdef _WIN32
+    system("cls");
+  #else
+    system("clear");
+  #endif
+}
+
 void gerar_campo(casa *campo, int bombas) {
   int pos_bombas[bombas];
   int tamanho = DIMENSAO_CAMPO * DIMENSAO_CAMPO;
@@ -71,25 +91,7 @@ int verificar_jogada(casa *campo, int jogada) {
   }
 }
 
-int busca_seq(int vetor[], int chave, int tamanho) {
-  int i;
 
-  for(i = 0; i < tamanho; ++i) {
-    if(vetor[i] == chave) {
-      return i;
-    }
-  }
-
-  return -1;
-}
-
-void limpar_tela() {
-  #ifdef _WIN32
-    system("cls");
-  #else
-    system("clear");
-  #endif
-}
 
 void ajuda(){
   limpar_tela();
