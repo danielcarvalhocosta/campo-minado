@@ -82,3 +82,11 @@ int busca_seq(int vetor[], int chave, int tamanho) {
 
   return -1;
 }
+
+void limpar_tela() {
+  #ifdef _WIN32
+    system("cls");
+  #else
+    system("clear");
+  #endif
+}

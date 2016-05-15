@@ -8,7 +8,7 @@
 
 void jogar(){
 	int opc;
-	system("cls"); //limpa a tela
+	limpar_tela();
 	printf("Escolha o nivel de dificuldade\n");
 	printf("1 - Facil :)\n");
 	printf("2 - Dificil :(\n");
@@ -22,7 +22,7 @@ int main() {
 	casa campo[DIMENSAO_CAMPO][DIMENSAO_CAMPO];
 	int opc;
 	do{
-		system("cls"); //limpa a tela
+	limpar_tela();
   	printf("Campo Minado\n\n");
   	printf("1 - Jogar\n");
   	printf("2 - Ajuda\n");
