@@ -2,22 +2,12 @@
 #include <stdlib.h>
 #include "campo_minado.c"
 
-#define DIMENSAO_CAMPO 12
-#define BOMBAS_FACIL 20
-#define BOMBAS_DIFICIL 50
-
 int main() {
-	//casa campo[DIMENSAO_CAMPO][DIMENSAO_CAMPO];
 	int opc;
-	do{
-	limpar_tela();
-  		printf("      .--.                               .-..-. _                 .-.      \n"); 
-		printf("     : .--'                              : `' ::_;                : :      \n"); 
-		printf("     : :    .--.  ,-.,-.,-..---.  .--.   : .. :.-.,-.,-. .--.   .-' : .--. \n"); 
-		printf("     : :__ ' .; ; : ,. ,. :: .; `' .; :  : :; :: :: ,. :' .; ; ' .; :' .; :\n"); 
-		printf("     `.__.'`.__,_;:_;:_;:_;: ._.'`.__.'  :_;:_;:_;:_;:_;`.__,_;`.__.'`.__.'\n"); 
-		printf("                           : :                                        \n");      
-		printf("                           :_;                                    \n"); 
+	do {
+    limpar_tela();
+    imprimir_logo();
+
   	printf("1 - Jogar\n");
   	printf("2 - Ajuda\n");
   	printf("3 - Sair\n");
@@ -26,7 +16,7 @@ int main() {
 
 		switch (opc) {
 			case 1:
-				menuJogar();
+				jogar();
 			break;
 			case 2:
 				ajuda();

@@ -12,6 +12,16 @@ typedef struct {
   bool aberta;
 } casa;
 
+void imprimir_logo() {
+  printf("      .--.                               .-..-. _                 .-.      \n");
+  printf("     : .--'                              : `' ::_;                : :      \n");
+  printf("     : :    .--.  ,-.,-.,-..---.  .--.   : .. :.-.,-.,-. .--.   .-' : .--. \n");
+  printf("     : :__ ' .; ; : ,. ,. :: .; `' .; :  : :; :: :: ,. :' .; ; ' .; :' .; :\n");
+  printf("     `.__.'`.__,_;:_;:_;:_;: ._.'`.__.'  :_;:_;:_;:_;:_;`.__,_;`.__.'`.__.'\n");
+  printf("                           : :                                             \n");
+  printf("                           :_;                                             \n\n\n");
+}
+
 void imprimir_campo(casa *campo) {
   int i, j;
 
@@ -72,9 +82,28 @@ void gerar_campo(casa *campo, int bombas) {
 }
 
 /*
+  Retorno:
+    Um inteiro representando a quantidade de bombas ao redor
+*/
+int verificar_vizinhos(casa *campo, int jogada) {
+  int i, j, bombas = 0;
+
+  if(campo[(jogada-1) - 12].valor == '*') ++bombas;
+  if(campo[jogada - 12].valor == '*') ++bombas;
+  if(campo[(jogada+1) - 12].valor == '*') ++bombas;
+  if(campo[jogada - 1].valor == '*') ++bombas;
+  if(campo[jogada + 1].valor == '*') ++bombas;
+  if(campo[(jogada-1) + 12].valor == '*') ++bombas;
+  if(campo[jogada + 12].valor == '*') ++bombas;
+  if(campo[(jogada+1) + 12].valor == '*') ++bombas;
+
+  return bombas;
+}
+
+/*
   Retornos:
-    1 - Perdeu
-    0 - Jogo continua
+    -1 - Perdeu
+    (0 .. 6) - Quantidade de bombas ao redor
 */
 int verificar_jogada(casa *campo, int jogada) {
   if(campo[jogada].aberta) {
@@ -82,66 +111,79 @@ int verificar_jogada(casa *campo, int jogada) {
   } else {
     if(campo[jogada].valor == '*') {
       campo[jogada].aberta = true;
-      return 1;
+      return -1;
     } else {
-      // TODO Implementar abertura de vizinhos vazios
       campo[jogada].aberta = true;
-      return 0;
+
+      return verificar_vizinhos(campo, jogada);
     }
   }
 }
 
-
-
 void ajuda(){
   limpar_tela();
+  imprimir_logo();
+
   printf("Guia do Jogo\n\n");
   //botar as regras aqui e tals
   printf("Pressione qualquer tecla para voltar ao menu principal\n");
   getchar(); getchar();
 }
 
-void menuJogar(){
+int jogar(){
   casa campo[DIMENSAO_CAMPO][DIMENSAO_CAMPO];
-	int opc;
-  int jogada;
-	limpar_tela();
-	printf("Escolha o nivel de dificuldade\n");
-	printf("1 - Facil :)\n");
-	printf("2 - Dificil :(\n");
-	printf("3 - Voltar ao menu principal\n");
-	printf("Opcao selecionada: ");
-	scanf("%d", &opc);
 
-  switch(opc){
-    case 1:
-      gerar_campo(*campo, BOMBAS_FACIL);
-    break;
-    case 2:
-      gerar_campo(*campo, BOMBAS_DIFICIL);
-    break;
-  }
+  for(;;) {
+    int opc, jogada;
 
-
-  for(;;){
     limpar_tela();
-    printf("Campo Minado\n");
-    imprimir_campo(*campo);
-    printf("\n\n Digite sua jogada: ");
-    scanf("%d", &jogada); //getchar();
-    if(verificar_jogada(*campo, jogada) == 1){
-      limpar_tela();
-      printf("Campo Minado\n");
-      imprimir_campo(*campo);
-      printf("\n VOCE PERDEU!\n");
-      printf("Pressione qualquer tecla para voltar ao menu");
-      getchar(); getchar();
+    imprimir_logo();
+
+    printf("Escolha o nivel de dificuldade\n\n");
+    printf("1 - Facil (20 Bombas)\n");
+    printf("2 - Dificil (50 Bombas) \n");
+    printf("3 - Voltar ao menu principal\n");
+    printf("\nOpcao selecionada: ");
+    scanf("%d", &opc);
+
+    switch(opc){
+      case 1:
+        gerar_campo(*campo, BOMBAS_FACIL);
+      break;
+      case 2:
+        gerar_campo(*campo, BOMBAS_DIFICIL);
+      break;
+      case 3:
+        return 0;
+      break;
+      default:
+        printf("Opção inválida!\n");
       break;
     }
-    else{
-      verificar_jogada(*campo, jogada);
+
+    int jogada_info = 0;
+
+    for(;;){
+      limpar_tela();
+      imprimir_logo();
+
+      imprimir_campo(*campo);
+
+      printf("\n Bombas próximas da última jogada: %d\n", jogada_info);
+      printf("\n\n Digite sua jogada: ");
+      scanf("%d", &jogada);
+
+      jogada_info = verificar_jogada(*campo, jogada-1);
+      if(jogada_info == -1){
+        limpar_tela();
+        imprimir_logo();
+
+        imprimir_campo(*campo);
+        printf("\n VOCE PERDEU!\n");
+        printf("Pressione qualquer tecla para voltar ao menu");
+        getchar(); getchar();
+        break;
+      }
     }
   }
-  //while (!verificar_jogada(*campo, jogada));
-
 }
