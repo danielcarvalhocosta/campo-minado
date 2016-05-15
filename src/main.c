@@ -16,7 +16,7 @@ int main() {
 
 		switch (opc) {
 			case 1:
-				jogar();
+				jogar(-1);
 			break;
 			case 2:
 				ajuda();

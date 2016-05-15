@@ -148,11 +148,11 @@ void ajuda(){
   getchar(); getchar();
 }
 
-int jogar(){
+int jogar(int jogada){
   casa campo[DIMENSAO_CAMPO][DIMENSAO_CAMPO];
 
   for(;;) {
-    int opc, jogada;
+    int opc;
 
     limpar_tela();
     imprimir_logo();
@@ -186,9 +186,16 @@ int jogar(){
       imprimir_logo();
 
       imprimir_campo(*campo);
-
-      printf("\n Bombas próximas da última jogada: %d\n", jogada_info);
-      printf("\n\n Digite sua jogada: ");
+      if(jogada > 144){
+        printf("\n Jogada Inválida");       
+      }
+      else if(jogada == 0){
+        return 0;
+      }
+      else{
+        printf("\n Bombas próximas da última jogada: %d\n", jogada_info);
+      }
+      printf("\n\n Digite sua jogada (Digite 0 para encerrar a partida): ");
       scanf("%d", &jogada);
 
       jogada_info = verificar_jogada(*campo, jogada-1);
