@@ -125,8 +125,26 @@ void ajuda(){
   imprimir_logo();
 
   printf("Guia do Jogo\n\n");
-  //botar as regras aqui e tals
+  printf("\n");
+  printf("\n");
+  printf("1-Ao prossionar jogar voce ira escolhe uma entre as duas modalidades\n");
+  printf("\n");
+  printf("2-Selecionada a modalidade ira aparecer uma matriz representando o campo\n");
+  printf("\n");
+  printf("3-Selecione a posiçao de seu interece e espere o resultado\n");
+  printf("\n");
+  printf("4-Caso seja [ - ] representa que nao tem bomba e voce podera escolher outra\n");
+  printf("posiçao\n");
+  printf("\n");
+  printf("5-Caso seja [ * ] representa que vc encontrou uma boba e automatiamente perdeu\n");
+  printf("o jogo\n");
+  printf("\n");
+  printf("6-Ao final do jogo voce podera jogar novamente ou sair do jogo\n");
+  printf("\n");
   printf("Pressione qualquer tecla para voltar ao menu principal\n");
+  printf("\n");
+
+
   getchar(); getchar();
 }
 
