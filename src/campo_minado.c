@@ -90,3 +90,56 @@ void limpar_tela() {
     system("clear");
   #endif
 }
+
+void ajuda(){
+  limpar_tela();
+  printf("Guia do Jogo\n\n");
+  //botar as regras aqui e tals
+  printf("Pressione qualquer tecla para voltar ao menu principal\n");
+  getchar(); getchar();
+}
+
+void menuJogar(){
+  casa campo[DIMENSAO_CAMPO][DIMENSAO_CAMPO];
+	int opc;
+  int jogada;
+	limpar_tela();
+	printf("Escolha o nivel de dificuldade\n");
+	printf("1 - Facil :)\n");
+	printf("2 - Dificil :(\n");
+	printf("3 - Voltar ao menu principal\n");
+	printf("Opcao selecionada: ");
+	scanf("%d", &opc);
+
+  switch(opc){
+    case 1:
+      gerar_campo(*campo, BOMBAS_FACIL);
+    break;
+    case 2:
+      gerar_campo(*campo, BOMBAS_DIFICIL);
+    break;
+  }
+
+
+  for(;;){
+    limpar_tela();
+    printf("Campo Minado\n");
+    imprimir_campo(*campo);
+    printf("\n\n Digite sua jogada: ");
+    scanf("%d", &jogada); //getchar();
+    if(verificar_jogada(*campo, jogada) == 1){
+      limpar_tela();
+      printf("Campo Minado\n");
+      imprimir_campo(*campo);
+      printf("\n VOCE PERDEU!\n");
+      printf("Pressione qualquer tecla para voltar ao menu");
+      getchar(); getchar();
+      break;
+    }
+    else{
+      verificar_jogada(*campo, jogada);
+    }
+  }
+  //while (!verificar_jogada(*campo, jogada));
+
+}

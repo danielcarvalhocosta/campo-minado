@@ -6,20 +6,8 @@
 #define BOMBAS_FACIL 20
 #define BOMBAS_DIFICIL 50
 
-void jogar(){
-	int opc;
-	limpar_tela();
-	printf("Escolha o nivel de dificuldade\n");
-	printf("1 - Facil :)\n");
-	printf("2 - Dificil :(\n");
-	printf("3 - Voltar ao menu principal\n");
-	printf("Opcao selecionada: ");
-	scanf("%d", &opc);
-	//if(opc == 3) break;
-}
-
 int main() {
-	casa campo[DIMENSAO_CAMPO][DIMENSAO_CAMPO];
+	//casa campo[DIMENSAO_CAMPO][DIMENSAO_CAMPO];
 	int opc;
 	do{
 	limpar_tela();
@@ -32,9 +20,10 @@ int main() {
 
 		switch (opc) {
 			case 1:
-				jogar();
+				menuJogar();
 			break;
 			case 2:
+				ajuda();
 			break;
 		}
 
