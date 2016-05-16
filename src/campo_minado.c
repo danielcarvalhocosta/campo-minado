@@ -124,10 +124,10 @@ void ajuda(){
   limpar_tela();
   imprimir_logo();
 
-  printf("Guia do Jogo\n\n");
+  printf("Guia do Jogo\n");
   printf("\n");
   printf("\n");
-  printf("1-Ao prossionar jogar voce ira escolhe uma entre as duas modalidades\n");
+  printf("1-Ao pressionar jogar voce ira escolhe uma entre as duas modalidades\n");
   printf("\n");
   printf("2-Selecionada a modalidade ira aparecer uma matriz representando o campo\n");
   printf("\n");
@@ -136,19 +136,17 @@ void ajuda(){
   printf("4-Caso seja [ - ] representa que nao tem bomba e voce podera escolher outra\n");
   printf("posiçao\n");
   printf("\n");
-  printf("5-Caso seja [ * ] representa que vc encontrou uma boba e automatiamente perdeu\n");
-  printf("o jogo\n");
+  printf("5-Caso seja [ * ] representa que voce encontrou uma bomba e  perdeu o jogo\n");
   printf("\n");
   printf("6-Ao final do jogo voce podera jogar novamente ou sair do jogo\n");
-  printf("\n");
+  printf("\n\n");
   printf("Pressione qualquer tecla para voltar ao menu principal\n");
   printf("\n");
-
 
   getchar(); getchar();
 }
 
-int jogar(int jogada){
+int jogar(){
   casa campo[DIMENSAO_CAMPO][DIMENSAO_CAMPO];
 
   for(;;) {
@@ -179,22 +177,23 @@ int jogar(int jogada){
       break;
     }
 
-    int jogada_info = 0;
+    int jogada = 1, jogada_info = 0;
 
     for(;;){
       limpar_tela();
       imprimir_logo();
 
       imprimir_campo(*campo);
-      if(jogada > 144){
-        printf("\n Jogada Inválida");       
+
+      printf("\n Bombas próximas da última jogada: %d\n", jogada_info);
+
+      if(jogada < 0 || jogada > DIMENSAO_CAMPO*DIMENSAO_CAMPO){
+        printf("\n Jogada Inválida");
       }
       else if(jogada == 0){
         return 0;
       }
-      else{
-        printf("\n Bombas próximas da última jogada: %d\n", jogada_info);
-      }
+
       printf("\n\n Digite sua jogada (Digite 0 para encerrar a partida): ");
       scanf("%d", &jogada);
 
